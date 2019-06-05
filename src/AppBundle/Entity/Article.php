@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -10,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Article
 {
@@ -44,11 +46,32 @@ class Article
     private $auteur;
 
     /**
+     * @ORM\Column(name="publication", type="boolean")
+     */
+    private $publication;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="contenu", type="text", nullable=true)
      */
     private $contenu;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateEdition;
+
+    /**
+     * @Gedmo\Slug(fields={"titre"})
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commentaire", mappedBy="article")
@@ -67,6 +90,18 @@ class Article
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->publication = true;
+        $this->categories = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\preUpdate
+     * Callback pour mettre à jour la date d'édition à chaque modificaiton de l'entité
+     */
+    public function updateDate()
+    {
+        $this->setDateEdition(new \DateTime());
     }
 
 
@@ -176,6 +211,22 @@ class Article
         return $this->contenu;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPublication()
+    {
+        return $this->publication;
+    }
+
+    /**
+     * @param mixed $publication
+     */
+    public function setPublication($publication)
+    {
+        $this->publication = $publication;
+    }
+
     
 
     /**
@@ -244,5 +295,71 @@ class Article
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+    }
+
+
+
+    /**
+     * Set dateEdition
+     *
+     * @param \DateTime $dateEdition
+     *
+     * @return Article
+     */
+    public function setDateEdition($dateEdition)
+    {
+        $this->dateEdition = $dateEdition;
+
+        return $this;
+    }
+
+    /**
+     * Get dateEdition
+     *
+     * @return \DateTime
+     */
+    public function getDateEdition()
+    {
+        return $this->dateEdition;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \AppBundle\Entity\Image $image
+     *
+     * @return Article
+     */
+    public function setImage(\AppBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \AppBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
