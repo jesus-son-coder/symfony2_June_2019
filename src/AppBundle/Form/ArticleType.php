@@ -3,6 +3,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\ImageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -19,6 +20,8 @@ class ArticleType extends AbstractType
             ->add('publication', 'checkbox', [
                 'required' => false
             ])
+            // Ajouter un formulaire externe "ImageType" avec une Relation simple :
+            ->add('image', new ImageType())
         ;
     }
 

@@ -3,8 +3,19 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+        {% stylesheets
+            'assets/css/bootstrap.min.css'
+        %}
+            <link href="{{ asset_url }}" rel="stylesheet"/>
+        {% endstylesheets %}
+
+        {% block stylesheets %}
+        {% endblock %}
+
+        <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
     </head>
     <body>
         {% block body %}{% endblock %}

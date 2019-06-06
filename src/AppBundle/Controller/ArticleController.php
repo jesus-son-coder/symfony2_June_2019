@@ -25,14 +25,14 @@ class ArticleController extends Controller
         $repo = $em->getRepository('AppBundle:Article');
         $articles = $repo->findAll();
 
-        $mes_articles = $repo->myFindAll_court_1();
+        // $mes_articles = $repo->myFindAll_court_1();
 
-        $mon_article_1 = $repo->myFindOne(1);
+        // $mon_article_1 = $repo->myFindOne(1// );
 
-        $mon_article_avec_auteur_et_date = $repo->findByAuteurAndDate('Stevie Wonder', '2019-02-08 10:34:56');
+        // $mon_article_avec_auteur_et_date = $repo->findByAuteurAndDate('Stevie Wonder', '2019-02-08 10:34:56');//
 
         // print_r("herve"); die();
-        print_r($mon_article_avec_auteur_et_date); die();
+        // print_r($mon_article_avec_auteur_et_date); die();
 
         return new Response("Coucou !");
     }
@@ -53,7 +53,9 @@ class ArticleController extends Controller
             et faire une ou plusieurs jointure s'impose très souvent. */
     }
 
-
+    /**
+     * @Route("/ajouter", name="article_ajouter")
+     */
     public function ajouterAction()
     {
         $article = new Article();
