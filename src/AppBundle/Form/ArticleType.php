@@ -22,6 +22,13 @@ class ArticleType extends AbstractType
             ])
             // Ajouter un formulaire externe "ImageType" avec une Relation simple :
             ->add('image', new ImageType())
+
+            // Une Collection de Categories :
+            ->add('categories', 'collection', [
+                'type' => new CategorieType(),
+                'allow_add' => true,
+                'allow_delete' => true
+            ])
         ;
     }
 
