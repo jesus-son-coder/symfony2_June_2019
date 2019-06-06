@@ -93,7 +93,7 @@ class A0KitRepository extends \Doctrine\ORM\EntityRepository
 
 
     /*
-     * Fonction réutilisable en la colland à un query existant
+     * Fonction réutilisable en la collanT à un query existant
      * pour récupérer des résultats filtrés à l'année en cours (du 01 janvier au 31 décembre) :
      */
     public function whereCurrentYear(\Doctrine\ORM\QueryBuilder $qb)

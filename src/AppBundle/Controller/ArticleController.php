@@ -3,6 +3,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,5 +51,30 @@ class ArticleController extends Controller
         /* Voici comment vous devez faire la plupart de vos reqêtes.
             En effet, vous aurez souvent besoin d'utiliser des entités liées entre elles,
             et faire une ou plusieurs jointure s'impose très souvent. */
+    }
+
+
+    public function ajouterAction()
+    {
+        $article = new Article();
+        $form = $this->createForm(new ArticleType(), $article);
+
+        $request = $this->get('request');
+
+        if($request->getMethod() == 'POST'){
+            $form->bind($request);
+
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('articles_homepage'));
+            }
+        }
+
+        return $this->render('AppBundle:Blog:ajouter.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
