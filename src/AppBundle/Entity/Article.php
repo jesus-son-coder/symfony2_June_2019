@@ -64,7 +64,7 @@ class Article
 
     /**
      * @Gedmo\Slug(fields={"titre"})
-     * @ORM\Column(length=128, unique=true)
+     * @ORM\Column(length=128, unique=true, nullable=true)
      */
     private $slug;
 
