@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
 use AppBundle\Form\ArticleType;
+use AppBundle\Form\ArticleType_2;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,8 +59,38 @@ class ArticleController extends Controller
      */
     public function ajouterAction()
     {
+        /*
+         * Formulaire imbriqué avec une Collection de type CategorieType permettant d'ajouter une ou plusieurs Categorie à l'Article :
+         */
         $article = new Article();
         $form = $this->createForm(new ArticleType(), $article);
+
+        $request = $this->get('request');
+
+        if($request->getMethod() == 'POST'){
+            $form->bind($request);
+
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($article);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('articles_homepage'));
+            }
+        }
+
+        return $this->render('AppBundle:Blog:ajouter.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/ajouter-categorie2", name="article_ajouter_categorie2")
+     */
+    public function ajouterWithCategorie2Action()
+    {
+        $article = new Article();
+        $form = $this->createForm(new ArticleType_2(), $article);
 
         $request = $this->get('request');
 
