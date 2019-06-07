@@ -47,4 +47,14 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
                     ->getResult();
     }
 
+
+    public function getSelectList()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.publication = 1'); // on filtre sur l'attribut "publication"
+
+        // et on retourne simplement le QueryBuilder, et non la Query : attention !!
+        return $qb;
+    }
+
 }

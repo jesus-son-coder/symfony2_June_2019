@@ -4,8 +4,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Commentaire;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\ArticleType_2;
+use AppBundle\Form\CommentaireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -100,6 +102,33 @@ class ArticleController extends Controller
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($article);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('articles_homepage'));
+            }
+        }
+
+        return $this->render('AppBundle:Blog:ajouter.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/ajouter-article-commentaires", name="article_ajouter_article_commentaire")
+     */
+    public function ajouterWithCommentaireAction()
+    {
+        $commentaire = new Commentaire();
+        $form = $this->createForm(new CommentaireType(), $commentaire);
+
+        $request = $this->get('request');
+
+        if($request->getMethod() == 'POST'){
+            $form->bind($request);
+
+            if($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($commentaire);
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('articles_homepage'));

@@ -23,11 +23,15 @@ class ArticleType_2 extends AbstractType
             // Ajouter un formulaire externe "ImageType" avec une Relation simple :
             ->add('image', new ImageType())
 
-            // Une Collection de Categories :
+            // Une Collection de Categories :_
             ->add('categories', 'entity', [
                 'class' => 'AppBundle:Categorie',
                 'property' => 'nom',
-                // La propriété "multiple" permet au champ de pouvoir sélectionner plusieurs valeurs simultanément :
+
+                // La propriété "multiple" permet au champ de pouvoir sélectionner plusieurs valeurs simultanément.
+                /* L'option "multiple" définit une liste de Categorie, et non une Catégorie unique.
+                    Cette option est très imporrtante, car si vous l'oubliez, le formulaire (qui retourne une entité "Categorie")
+                    et votre entité "Article" (qui attend une liste d'entités "Categorie") ne vont pas s'entendre ! */
                 'multiple' => true
             ])
         ;
