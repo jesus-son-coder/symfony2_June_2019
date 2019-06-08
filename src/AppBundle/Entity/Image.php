@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Class Image
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ImageRepository")
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\HasLifecycleCallbacks
  */
 class Image
 {
@@ -124,7 +124,7 @@ class Image
         }
 
         // si on avait un ancien fichier, on le supprime :
-        if (null == $this->tempFilename) {
+        if (null !== $this->tempFilename) {
             $oldFile = $this->getUploadRootDir() . '/' . $this->id . '.' . $this->tempFilename;
 
             if (file_exists($oldFile)) {
@@ -172,11 +172,11 @@ class Image
     }
 
     /**
-     * @param mixed $file
+     * @param UploadedFile $file
      *
      * On modifie le Setter de "File", pour prendre en compte l'upload d'un nouveau fichier lorsqu'il en existe déjà un autre.
      */
-    public function setFile($file)
+    public function setFile(UploadedFile $file)
     {
         $this->file = $file;
 
@@ -235,9 +235,28 @@ class Image
     {
         // En PostRemove, on n'a pas accès à l'id, on utilise notre nom sauvegardé :
         if (file_exists($this->tempFilename)) {
+            
             // On supprime le fichier :
             unlink($this->tempFilename);
         }
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTempFilename()
+    {
+        return $this->tempFilename;
+    }
+
+    /**
+     * @param mixed $tempFilename
+     */
+    public function setTempFilename($tempFilename)
+    {
+        $this->tempFilename = $tempFilename;
+    }
+
+
 
 }

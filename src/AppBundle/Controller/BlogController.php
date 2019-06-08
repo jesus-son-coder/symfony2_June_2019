@@ -37,8 +37,9 @@ class BlogController extends Controller
             $form->bind($request);
 
             if($form->isValid()) {
-                // On traite manuellement le fichier uploadé :
-                $article->getImage()->upload();
+                /* La ligne ci-dessous n'est plus utile désormais
+                    On fait appels aux évènements Doctrine : */
+                // $article->getImage()->upload();
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($article);
