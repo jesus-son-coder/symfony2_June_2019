@@ -19,7 +19,41 @@
         <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container">
+            <div class="row">
+                <div id="header" class="hero-unit">
+                    <h1>Mon projet Symfony2</h1>
+                    <p>Ce projet est propulsé par Symfony2, et construit grâce au tutoriel du siteduzero.</p>
+                    <p><a href="#" class="btn btn-primary btn-large">Lire le tutoriel</a></p>
+                </div>
+            </div>
+            <div class="row">
+                <div id="menu" class="span3">
+                    <h3>Le blog</h3>
+                    {#<ul class="nav nav-pills nav-stacked">#}
+                    <ul class="">
+                        <li>
+                            <a href="{{ path('blog_accueil') }}">Accueil du blog</a>
+                        </li>
+
+                        <li>
+                            <a href="{{ path('blog_ajouter') }}">Ajouter un article</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="base-content" class="span9">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+
+            <hr>
+
+            <footer>
+                <p>The sky's the limit - 2019 and beyond</p>
+            </footer>
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

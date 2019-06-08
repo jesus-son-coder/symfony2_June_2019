@@ -362,4 +362,8 @@ class Article
     {
         return $this->image;
     }
+
+
+
+
 }

@@ -235,7 +235,7 @@ class Image
     {
         // En PostRemove, on n'a pas accès à l'id, on utilise notre nom sauvegardé :
         if (file_exists($this->tempFilename)) {
-            
+
             // On supprime le fichier :
             unlink($this->tempFilename);
         }
@@ -258,5 +258,9 @@ class Image
     }
 
 
+    public function getWebPath()
+    {
+        return $this->getUploadDir() . '/' . $this->getId() . '.' . $this->getUrl();
+    }
 
 }

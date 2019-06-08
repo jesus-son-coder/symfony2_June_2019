@@ -3,3 +3,8 @@
     background-color: #e7eaec;
     padding: 20px;
 }
+
+#base-content {
+    padding-right: 30px;
+    padding-left: 30px;
+}

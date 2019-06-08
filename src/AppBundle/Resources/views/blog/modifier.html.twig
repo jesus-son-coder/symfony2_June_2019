@@ -1,8 +1,9 @@
 {% extends "::base.html.twig" %}
 
-{% block title %}{{ parent() }}{% endblock %}
+{% block title %}Modifier un article - {{ parent() }}{% endblock %}
 
 {% block body %}
+    <h2>Modifier un article</h2>
     <div class="container">
         <div class="well">
             <form method="post" {{ form_enctype(form) }}>
@@ -10,8 +11,17 @@
                 <input type="submit" class="btn btn-primary">
             </form>
         </div>
-    </div>
 
+        <p>
+            Vous éditez un article déjà existant, <br>ne le changez pas trop pour éviter aux membres de ne pas comprendre ce qu'il se passe.
+        </p>
+
+        <p>
+            <a href="{{ path('blog_voir', {'id': article.id}) }}" class="btn">
+                <i class="icon-chevron-left"></i> Retour à l'article
+            </a>
+        </p>
+    </div>
 
     {# Voici le script en question : #}
     <script type="text/javascript">
