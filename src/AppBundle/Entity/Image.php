@@ -4,6 +4,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class Image
@@ -27,6 +28,15 @@ class Image
      * @ORM\Column(name="url", type="string", length=255)
      */
     private $url;
+
+    /*
+     * @var UploadedFile $file
+     *
+     * Notez bien que nous n'avons pas d'annotation @ORM\Doctrine pour cet attribut $file.
+     * Ce n'est pas cet attribut $file que nous allons persister.
+     * Mais c'est bien cet attribut qui servira pour le formulaire...
+     */
+    private $file;
 
     /**
      * @var string $alt
@@ -91,5 +101,37 @@ class Image
     public function getAlt()
     {
         return $this->alt;
+    }
+
+    public function upload()
+    {
+        // Si jamais il n'y a pas de fichier (champ facultatif) :
+        if(null === $this->file) {
+            return;
+        }
+
+        // On garde le nom original du fichier de l'internaute :
+        $name = $this->file->getClientOriginalName();
+
+        // On déplace le fichier envoyé dans le répertoire de notre choix :
+        $this->file->move($this->getUploadRootDir(), $name);
+
+        // On sauvegarde le nom de fichier dans notre attribut $url :
+        $this->url = $name;
+
+        // On crée également le futur attribut alt de notre balise <img> :
+        $this->alt = $name;
+    }
+
+    public function getUploadDir()
+    {
+        // On retourne le chemin relatif vers l'image pour un navigateur :
+        return 'uploads/img';
+    }
+
+    protected function getUploadRootDir()
+    {
+        // On retourne le chemin relatif vers l'image pour notre code PHP :
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 }

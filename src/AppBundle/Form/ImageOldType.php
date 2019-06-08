@@ -8,12 +8,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ImageType extends AbstractType
+class ImageOldType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file')
+            ->add('url', 'text')
+            ->add('alt', 'text')
         ;
     }
 

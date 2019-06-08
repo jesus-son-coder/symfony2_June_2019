@@ -7,6 +7,7 @@ use AppBundle\Entity\Article;
 use AppBundle\Entity\Commentaire;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\ArticleType_2;
+use AppBundle\Form\ArticleType_EventListener;
 use AppBundle\Form\CommentaireType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -129,6 +130,36 @@ class ArticleController extends Controller
             if($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($commentaire);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('articles_homepage'));
+            }
+        }
+
+        return $this->render('AppBundle:Blog:ajouter.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+    /**
+     * @Route("/modifier-article-eventlistener/{id}", name="article_modifier_eventlistener")
+     */
+    public function modifierArticleEventListenerAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->find($id);
+
+        $form = $this->createForm(new ArticleType_EventListener(), $article);
+
+        $request = $this->get('request');
+
+        if($request->getMethod() == 'POST'){
+            $form->bind($request);
+
+            if($form->isValid()) {
+
+                $em->persist($article);
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('articles_homepage'));
