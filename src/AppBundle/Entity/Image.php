@@ -125,13 +125,35 @@ class Image
 
     public function getUploadDir()
     {
-        // On retourne le chemin relatif vers l'image pour un navigateur :
+        // On retourne le chemin relatif vers l'image pour un navigateur;
+        // Ce répertoire 'upload/img' doit être localisé dans le répertoire "/web" du projet :
         return 'uploads/img';
     }
 
     protected function getUploadRootDir()
     {
-        // On retourne le chemin relatif vers l'image pour notre code PHP :
-        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+        /* Ici, on retourne le chemin absolu qui mène vers le fichier uplaodé.
+            Vous le savez, "__DIR__" représente le répertoire absolu du fichier courant (ici c'est notre Entité).
+            Du coup, pour atteindre le répertoire "/web", il faut remonter pas mal de dossiers,
+            ...comme vous pouvez le voir. */
+        return __DIR__ . '/../../../web/' . $this->getUploadDir();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+    }
+
+
 }
