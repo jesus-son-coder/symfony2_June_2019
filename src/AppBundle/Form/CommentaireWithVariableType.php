@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\Form;
 
 use AppBundle\Form\ImageType;
