@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Article
@@ -13,6 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="article")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
  * @ORM\HasLifecycleCallbacks()
+ *
+ * L'annotation se définit sur la classe, et non sur une méthode ou un attribut !
+ * @Assert\Callback(methods={"contenuValide"})
  */
 class Article
 {
@@ -370,6 +374,19 @@ class Article
     }
 
 
+    public function contenuValide(ExecutionContextInterface $context)
+    {
+        $mots_interdits = array('echec', 'abandon');
+
+        // On vérifie que le contenu ne contient pas l'un des mots :
+        if (preg_match('#'. implode('|', $mots_interdits), '#', $this->getContenu() )) {
+
+            /* La règle est violée, on définit l'erreur et son message.
+                1er argument: on dit quel attribut l'erreur concerne, ici : "contenu" ;
+                2ème argument: le message d'erreur. */
+            $context->addViolationAt('contenu', 'Contenu invalide car il contient un mot interdit', array(), null);
+        }
+    }
 
 
 }
