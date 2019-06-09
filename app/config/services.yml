@@ -7,3 +7,14 @@ services:
     #service_name:
     #    class: AppBundle\Directory\ClassName
     #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+
+  #le nom du service
+    blog.validator.antiflood:
+        class: AppBundle\Validator\AntiFloodValidator
+        arguments: [@request, @doctrine.orm.entity_manager]
+        scope: request
+        # comme on injecte la requête, on doit préciser le Scope.
+
+        tags :
+            - { name: validator.constraint_validator, alias: blog_antiflood }
+              # c'est avevc l'alias qu'on retrouvera le service.
