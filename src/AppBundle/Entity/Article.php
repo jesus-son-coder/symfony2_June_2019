@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Article
@@ -17,6 +18,8 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *
  * L'annotation se définit sur la classe, et non sur une méthode ou un attribut !
  * @Assert\Callback(methods={"contenuValide"})
+ *
+ * @UniqueEntity(fields="titre", message="Un article existe déjà avec ce titre.")
  */
 class Article
 {
@@ -40,7 +43,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="titre", type="string", length=255)
+     * @ORM\Column(name="titre", type="string", length=255, unique=true)
      * @Assert\MinLength(limit=10, message="Le titre doit faire au moins {{limit}} caractères.")
      */
     private $titre;
