@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Validator\AntiFlood;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +35,7 @@ class Commentaire
      * @var text $contenu
      *
      * @ORM\Column(name="contenu", type="text")
+     * @AntiFlood()
      */
     private $contenu;
 
