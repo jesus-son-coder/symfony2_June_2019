@@ -44,7 +44,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255, unique=true)
-     * @Assert\MinLength(limit=10, message="Le titre doit faire au moins {{limit}} caractères.")
+     * Assert\Length(limit=10, message="Le titre doit faire au moins {{limit}} caractères.")
      */
     private $titre;
 
@@ -52,7 +52,7 @@ class Article
      * @var string
      *
      * @ORM\Column(name="auteur", type="string", length=255, nullable=true)
-     * @Assert\MinLength(2)
+     * Assert\Length(2)
      */
     private $auteur;
 
