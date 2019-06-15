@@ -23,7 +23,7 @@
             var $addLink = $('<a href="#" id="add_category" class="btn btn-info">Ajouter une catégorie</a>');
             $container.append($addLink);
 
-            // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+            // On ajoute un nouveau champ à chaque clic sur le lien d'ajout :
             $addLink.click(function(e) {
                 addCategory($container);
                 e.preventDefault(); // évite qu'un # apparaisse dans l'URL
