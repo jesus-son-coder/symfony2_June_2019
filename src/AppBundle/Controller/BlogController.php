@@ -25,6 +25,9 @@ class BlogController extends Controller
         $repo = $em->getRepository('AppBundle:Article');
         $articles = $repo->findAll();
 
+        // Voir le Username de l'utilsateur courant dans lo bloc de débogage :
+        $this->getCurrentUser();
+
         return $this->render('AppBundle:Blog:index.html.twig', [
             'articles' => $articles,
         ]);
@@ -162,5 +165,16 @@ class BlogController extends Controller
 
     }
 
+
+    public function getCurrentUser()
+    {
+        $currentUSer = $this->get('security.context')->getToken()->getUser();
+
+        /*
+         * Le Contrôleur dispose d'une méthode plus simple pour récupérer l'utilisateur courant, c'est  :
+         * $this->getUSer();
+         */
+        dump($currentUSer->getUsername());
+    }
 
 }
