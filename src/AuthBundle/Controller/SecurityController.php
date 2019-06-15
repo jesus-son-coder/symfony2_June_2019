@@ -21,7 +21,7 @@ class SecurityController extends Controller
 
         $request = $this->getRequest();
         $session = $request->getSession();
-
+$this->getCurrentUser();
         // On vérifie s'il y a des erreurs d'une précédente soumission du formulaire :
         if($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)){
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
@@ -35,6 +35,12 @@ class SecurityController extends Controller
             'last_usernmae' => $session->get(SecurityContext::LAST_USERNAME),
             'error' => $error,
         ]);
+    }
+
+    public function getCurrentUser()
+    {
+        $currentUSer = $this->get('security.context')->getToken()->getUser();
+        dump($currentUSer);
     }
 
 
