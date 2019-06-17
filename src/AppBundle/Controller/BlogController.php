@@ -51,7 +51,7 @@ class BlogController extends Controller
     /**
      * @Route("/ajouter", name="blog_ajouter")
      */
-    public function ajouterIAction()
+    public function ajouterAction()
     {
         $article = new Article();
         $form = $this->createForm(new ArticleType(), $article);
@@ -175,6 +175,42 @@ class BlogController extends Controller
          * $this->getUSer();
          */
         dump($currentUSer->getUsername());
+    }
+
+
+    /**
+     * Cette méthode ne sert que pour un test de fonctionnement :
+     *
+     * @Route("/homy/{cle}/{valeur}", name="addTask_page")
+     */
+        public function addTaskAction(Request $request, $cle, $valeur)
+    {
+        /* Vérifier que la liste des tâches a été initialisée et qu'on a donc une variable mesTaches  au niveau de la session : */
+        $session = $request->getSession();
+
+        $data = [
+            'france' => 55,
+            'italy' => 52,
+            'royaume-uni' => 54,
+            'allemagne' => 80,
+            'espagne' => 45
+        ];
+
+        $session->set('mesTaches', $data);
+
+        if($session->has('mesTaches')) {
+            /* Si oui, on ajoute la ta^che, et ajoute un petit meessage de succès : */
+            $mesTaches = $session->get('mesTaches');
+            $mesTaches[$cle] = (int) $valeur;
+            $session->set('mesTaches', $mesTaches);
+        }
+        dump($session->get('mesTaches'));
+
+        return new Response('OK !');
+
+
+        /* Si non, on forwarde au contrôleur, donc à l'action qui va initialiser la liste des tâches avec un message d'erreur : */
+
     }
 
 }
