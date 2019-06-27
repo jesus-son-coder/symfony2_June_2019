@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -7,6 +7,7 @@
 
         {% stylesheets
             'assets/css/bootstrap.min.css'
+            'assets/css/datatable/jquery.dataTables.1.10.19.min.css'
             'assets/css/app.css'
         %}
             <link href="{{ asset_url }}" rel="stylesheet"/>
@@ -15,8 +16,6 @@
         {% block stylesheets %}
         {% endblock %}
 
-        <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
-        <script src="{{ asset('assets/js/bootstrap.js') }}"></script>
     </head>
     <body>
         <div class="container">
@@ -28,9 +27,9 @@
                 </div>
             </div>
             <div class="row">
+                {#
                 <div id="menu" class="col-md-3">
                     <h3>Le blog</h3>
-                    {#<ul class="nav nav-pills nav-stacked">#}
                     <ul class="">
                         <li>
                             <a href="{{ path('blog_accueil') }}">Accueil du blog</a>
@@ -42,10 +41,10 @@
                     </ul>
                 </div>
 
-                <div id="base-content" class="col-md-9">
+                <div id="base-content" class="col-md-9"> #}
                     {% block body %}
                     {% endblock %}
-                </div>
+                {#</div> #}
             </div>
 
             <hr>
@@ -54,6 +53,11 @@
                 <p>The sky's the limit - 2019 and beyond</p>
             </footer>
         </div>
+        {#<script src="{{ asset('assets/js/jquery.min.js') }}"></script>#}
+        <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datepicker/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('assets/js/datatable/jquery.dataTables.1.10.19.min.js') }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
