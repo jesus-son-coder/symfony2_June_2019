@@ -39,15 +39,17 @@
     </div>
 
 
-    {% block javascripts %}
-    <script>
-        $(document).ready(function() {
-            $('#workersTable').DataTable();
-
-        } );
-    </script>
-    {% endblock %}
-
-
-
 {% endblock %}
+
+    {% block javascripts %}
+        <script>
+            $(document).ready(function() {
+                $('#workersTable').DataTable(
+                    {
+                        autoFill: true
+                    }
+                );
+
+            } );
+        </script>
+    {% endblock %}

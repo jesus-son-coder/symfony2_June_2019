@@ -8,6 +8,7 @@
         {% stylesheets
             'assets/css/bootstrap.min.css'
             'assets/css/datatable/jquery.dataTables.1.10.19.min.css'
+            'assets/css/datatable/autoFill.dataTables.min.css'
             'assets/css/app.css'
         %}
             <link href="{{ asset_url }}" rel="stylesheet"/>
@@ -15,6 +16,13 @@
 
         {% block stylesheets %}
         {% endblock %}
+
+        {#<script src="{{ asset('assets/js/jquery.min.js') }}"></script>#}
+        <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
+        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datepicker/bootstrap-datepicker.js') }}"></script>
+        <script src="{{ asset('assets/js/datatable/jquery.dataTables.1.10.19.min.js') }}"></script>
+        <script src="{{ asset('assets/js/datatable/dataTables.autoFill.min.js') }}"></script>
 
     </head>
     <body>
@@ -53,11 +61,7 @@
                 <p>The sky's the limit - 2019 and beyond</p>
             </footer>
         </div>
-        {#<script src="{{ asset('assets/js/jquery.min.js') }}"></script>#}
-        <script src="{{ asset('assets/js/jquery-1.11.1.min.js') }}"></script>
-        <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('assets/js/datepicker/bootstrap-datepicker.js') }}"></script>
-        <script src="{{ asset('assets/js/datatable/jquery.dataTables.1.10.19.min.js') }}"></script>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>
