@@ -1,0 +1,171 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Accueil - {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row" style="width: 100%">
+        <h2>Liste des Workers</h2>
+    </div>
+    <div class="row" style="width: 100%">
+
+    </div>
+    <div class="row" style="width: 100%">
+        <div id="workers-all-etabs">
+            <div class="panel-body">
+                <table id="workersTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="5%">Id</th>
+                            <th width="20%">Name</th>
+                            <th class=""  width="15%">Company</th>
+                            <th class="" width="15%" align="center">Location</th>
+                            <th class="" width="15%" align="center">Email</th>
+                            <th class="" width="10%" align="center">Telephone</th>
+                            <th class="" width="10%" align="center">StartDate</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="workersEditableTable">
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+    {% block javascripts %}
+        <script>
+            $(document).ready(function() {
+
+
+                var url = "{{ path('workers_editable_process') }}";
+
+                var urlPost = "{{ path('workers_editable_sender') }}";
+
+                function fetch_data()
+                {
+                    $.ajax({
+                        url: url,
+                        method: "POST",
+                        dataType:"json",
+                        success: function(data) {
+
+                           for (var count = 0; count < data.length; count++) {
+
+                               var html_data = '<tr><td>' + data[count].id + '</td>';
+
+                               html_data += '<td data-name="name" class="name" data-type="text" data-pk="' + data[count].id + '">' + data[count].name + '</td>';
+
+                               html_data += '<td data-name="company" class="company" data-type="text" data-pk="' + data[count].id + '">' + data[count].company + '</td>';
+
+                               html_data += '<td data-name="location" class="location" data-type="text" data-pk="' + data[count].id + '">' + data[count].location + '</td>';
+
+                               html_data += '<td data-name="email" class="email" data-type="text" data-pk="' + data[count].id + '">' + data[count].email + '</td>';
+
+                               html_data += '<td data-name="telephone" class="telephone" data-type="text" data-pk="' + data[count].id + '">' + data[count].telephone + '</td>';
+
+                               html_data += '<td data-name="startdate" class="startdate" data-type="text" data-pk="' + data[count].id + '">' + data[count].startdate + '</td></tr>';
+
+                               $('#workersEditableTable').append(html_data);
+
+                           }
+
+                           // Mise en route du plugin Datatable : module de recherche puissant, pagination, etc...
+                           $('#workersTable').DataTable();
+
+                        }
+                    });
+                }
+
+                fetch_data();
+
+                $.fn.editable.defaults.mode = 'inline';
+
+
+                /* Configuration des champs pour poster et editer des données */
+
+                $('#workersEditableTable').editable({
+                    container: 'body',
+                    selector: 'td.name',
+                    url: urlPost,
+                    title: 'Worker Name',
+                    type: "POST",
+                    validate: function(value){
+                        if($.trim(value) == '') {
+                            return 'This field is required';
+                        }
+                    }
+                });
+
+                $('#workersEditableTable').editable({
+                    container: 'body',
+                    selector: 'td.company',
+                    url: urlPost,
+                    title: 'Worker Name',
+                    type: "POST",
+                    validate: function(value){
+                        if($.trim(value) == '') {
+                            return 'This field is required';
+                        }
+                    }
+                });
+
+                $('#workersEditableTable').editable({
+                    container: 'body',
+                    selector: 'td.location',
+                    url: urlPost,
+                    title: 'Worker Location',
+                    type: "POST",
+                    validate: function(value){
+                        if($.trim(value) == '') {
+                            return 'This field is required';
+                        }
+                    }
+                });
+
+                $('#workersEditableTable').editable({
+                    container: 'body',
+                    selector: 'td.email',
+                    url: urlPost,
+                    title: 'Worker Email',
+                    type: "POST",
+                    validate: function(value){
+                        if($.trim(value) == '') {
+                            return 'This field is required';
+                        }
+                    }
+                });
+
+                $('#workersEditableTable').editable({
+                    container: 'body',
+                    selector: 'td.telephone',
+                    url: urlPost,
+                    title: 'Worker Telephone',
+                    type: "POST",
+                    validate: function(value){
+                        if($.trim(value) == '') {
+                            return 'This field is required';
+                        }
+                    }
+                });
+
+                $('#workersEditableTable').editable({
+                    container: 'body',
+                    selector: 'td.startdate',
+                    url: urlPost,
+                    title: 'Worker Date Start',
+                    type: "POST",
+                    validate: function(value){
+                        if($.trim(value) == '') {
+                            return 'This field is required';
+                        }
+                    }
+                });
+
+
+            } );
+        </script>
+    {% endblock %}

@@ -3,41 +3,43 @@
 {% block title %}Accueil - {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h2>Liste des Workers</h2>
+    <div class="row" style="width: 100%">
+        <h2>Liste des Workers</h2>
+    </div>
+    <div class="row" style="width: 100%">
+        <div id="workers-all-etabs">
+            <div class="panel-body">
+                <table id="workersTable" class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th width="5%">Id</th>
+                            <th width="20%">Name</th>
+                            <th class=""  width="15%">Company</th>
+                            <th class="" width="15%" align="center">Location</th>
+                            <th class="" width="15%" align="center">Email</th>
+                            <th class="" width="10%" align="center">Telephone</th>
+                            <th class="" width="10%" align="center">StartDate</th>
+                        </tr>
+                    </thead>
 
-    <div id="workers-all-etabs">
-        <div class="panel-body">
-            <table id="workersTable" class="table table-hover">
-                <thead>
-                    <tr>
-                        <th width="5%">Id</th>
-                        <th width="20%">Name</th>
-                        <th class=""  width="15%">Company</th>
-                        <th class="" width="15%" align="center">Location</th>
-                        <th class="" width="15%" align="center">Email</th>
-                        <th class="" width="10%" align="center">Telephone</th>
-                        <th class="" width="10%" align="center">StartDate</th>
-                    </tr>
-                </thead>
+                    <tbody id="workersEditableTable">
+                    {%  for worker in workers %}
+                        <tr>
+                            <td>{{ worker.id }}</td>
+                            <td>{{ worker.name }}</td>
+                            <td>{{ worker.company }}</td>
+                            <td>{{ worker.location }}</td>
+                            <td>{{ worker.email }}</td>
+                            <td>{{ worker.telephone }}</td>
+                            <td>{{ worker.startdate | date('d/m/Y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-                <tbody>
-                {%  for worker in workers %}
-                    <tr>
-                        <td>{{ worker.id }}</td>
-                        <td>{{ worker.name }}</td>
-                        <td>{{ worker.company }}</td>
-                        <td>{{ worker.location }}</td>
-                        <td>{{ worker.email }}</td>
-                        <td>{{ worker.telephone }}</td>
-                        <td>{{ worker.startdate | date('d/m/Y') }}</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-
+            </div>
         </div>
     </div>
-
 
 {% endblock %}
 

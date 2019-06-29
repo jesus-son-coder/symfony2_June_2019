@@ -57,13 +57,6 @@ class Workers
      */
     private $email;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="StartDate", type="datetime", nullable=true)
-     */
-    private $startdate;
-
 
     /**
      * @var string
@@ -71,6 +64,14 @@ class Workers
      * @ORM\Column(name="Telephone", type="string", length=255, nullable=true)
      */
     private $telephone;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="StartDate", type="datetime", nullable=true)
+     */
+    private $startdate;
+
 
 
     /**
