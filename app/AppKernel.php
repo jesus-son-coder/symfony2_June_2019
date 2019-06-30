@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new AppBundle\AppBundle(),
             new AuthBundle\AuthBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {
