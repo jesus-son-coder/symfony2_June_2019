@@ -36,31 +36,14 @@
     <body>
         <div class="container">
             <div class="row">
-                <div id="header" class="hero-unit">
-                    <h1>Mon projet Symfony2</h1>
-                    <p>Ce projet est propulsé par Symfony2, et construit grâce au tutoriel du siteduzero.</p>
-                    <p><a href="#" class="btn btn-primary btn-large">Lire le tutoriel</a></p>
+                <div id="header" class="hero-unit text-center" style="width: 100%">
+                    <h1>Workers Place</h1>
+                    <p>Monitoring of Workers Collected Data.</p>
                 </div>
             </div>
             <div class="row">
-                {#
-                <div id="menu" class="col-md-3">
-                    <h3>Le blog</h3>
-                    <ul class="">
-                        <li>
-                            <a href="{{ path('blog_accueil') }}">Accueil du blog</a>
-                        </li>
-
-                        <li>
-                            <a href="{{ path('blog_ajouter') }}">Ajouter un article</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div id="base-content" class="col-md-9"> #}
-                    {% block body %}
-                    {% endblock %}
-                {#</div> #}
+                {% block body %}
+                {% endblock %}
             </div>
 
             <hr>

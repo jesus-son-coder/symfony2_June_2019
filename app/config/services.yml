@@ -18,3 +18,8 @@ services:
         tags :
             - { name: validator.constraint_validator, alias: blog_antiflood }
               # c'est avevc l'alias qu'on retrouvera le service.
+
+
+    app.excel_service:
+        class: AppBundle\Services\ExcelService
+        arguments: [ "@doctrine.orm.entity_manager",@service_container ]

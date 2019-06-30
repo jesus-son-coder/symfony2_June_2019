@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Repository\A0KitRepository;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 
 
@@ -96,5 +97,40 @@ class WorkersController extends Controller
         $em->flush();
 
         return new Response(1);
+    }
+
+
+    protected function getData()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('AppBundle:Workers');
+        $workers = $repo->findAll();
+
+        $workersArray = array();
+        $i = 0;
+        foreach ($workers as $worker) {
+            $workersArray[$i]['id'] = $worker->getId();
+            $workersArray[$i]['name'] = $worker->getName();
+            $workersArray[$i]['company'] = $worker->getCompany();
+            $workersArray[$i]['location'] = $worker->getLocation();
+            $workersArray[$i]['email'] = $worker->getEmail();
+            $workersArray[$i]['telephone'] = $worker->getTelephone();
+            $workersArray[$i]['startdate'] = $worker->getStartdate()->format('d-m-Y H:i:s');;
+            $i++;
+        }
+
+        return $workersArray;
+    }
+
+
+    /**
+     *@Route("/workers/export-excel-sample-01", name="workers_export_excel_sample")
+     */
+    public function exportToExcelAction()
+    {
+        $datas = $this->getData();
+
+        $response = $this->get('app.excel_service')->buildExcelFile($datas);
+        return $response;
     }
 }
