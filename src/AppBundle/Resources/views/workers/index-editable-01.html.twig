@@ -12,23 +12,31 @@
     <div class="row" style="width: 100%">
         <div id="workers-all-etabs">
             <div class="panel-body">
-                <table id="workersTable" class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th width="5%">Id</th>
-                            <th width="20%">Name</th>
-                            <th class=""  width="15%">Company</th>
-                            <th class="" width="15%" align="center">Location</th>
-                            <th class="" width="15%" align="center">Email</th>
-                            <th class="" width="10%" align="center">Telephone</th>
-                            <th class="" width="10%" align="center">StartDate</th>
-                        </tr>
-                    </thead>
+                <div id="workers-tabs">
+                    <ul>
+                        <li><a href="#workersTable"><span>Liste des workers</span></a></li>
+                        <li><a href="#workerEditor"><span>Créer un nouveau worker</span></a></li>
+                    </ul>
 
-                    <tbody id="workersEditableTable">
+                    <table id="workersTable" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="5%">Id</th>
+                                <th width="20%">Name</th>
+                                <th class=""  width="15%">Company</th>
+                                <th class="" width="15%" align="center">Location</th>
+                                <th class="" width="15%" align="center">Email</th>
+                                <th class="" width="10%" align="center">Telephone</th>
+                                <th class="" width="10%" align="center">StartDate</th>
+                            </tr>
+                        </thead>
 
-                    </tbody>
-                </table>
+                        <tbody id="workersEditableTable">
+
+                        </tbody>
+                    </table>
+
+                </div>
 
             </div>
         </div>
@@ -40,6 +48,7 @@
         <script>
             $(document).ready(function() {
 
+                $( "#workers-tabs" ).tabs();
 
                 var url = "{{ path('workers_editable_process') }}";
 
