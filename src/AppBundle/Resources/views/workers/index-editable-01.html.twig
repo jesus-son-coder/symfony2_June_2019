@@ -69,8 +69,13 @@
                                html_data += '<td data-name="name" class="name" data-type="text" data-pk="' + data[count].id + '">' + data[count].name + '</td>';
 
                                html_data += '<td data-name="company" class="company" data-type="text" data-pk="' + data[count].id + '">' + data[count].company + '</td>';
-
+/*
                                html_data += '<td data-name="location" class="location" data-type="text" data-pk="' + data[count].id + '">' + data[count].location + '</td>';
+*/
+html_data += '<td class="location" data-name="location" data-pk="' + data[count].id + '" data-type="select">' + data[count].location + '</td>';
+
+
+
 
                                html_data += '<td data-name="email" class="email" data-type="text" data-pk="' + data[count].id + '">' + data[count].email + '</td>';
 
@@ -122,6 +127,8 @@
                     }
                 });
 
+
+/*
                 $('#workersEditableTable').editable({
                     container: 'body',
                     selector: 'td.location',
@@ -134,6 +141,34 @@
                         }
                     }
                 });
+*/
+
+                $('#workersEditableTable').editable({
+                    container: 'body',
+                    selector: 'td.location',
+                    url: urlPost,
+                    title: 'Worker Location',
+                    type: "POST",
+                    prepend: "not selected",
+                    source: [
+                        {value: 'Paris', text: 'Paris'},
+                        {value: 'London', text: 'London'},
+                        {value: 'New York', text: 'New York'}
+
+                    ],
+                    /*
+                    display: function(value, sourceData) {
+                            var colors = {"": "gray", 1: "green", 2: "blue"},
+                                elem = $.grep(sourceData, function(o){return o.value == value;});
+                                
+                            if(elem.length) {    
+                                $(this).text(elem[0].text).css("color", colors[value]); 
+                            } else {
+                                $(this).empty(); 
+                            }
+                    } */  
+                }); 
+
 
                 $('#workersEditableTable').editable({
                     container: 'body',
